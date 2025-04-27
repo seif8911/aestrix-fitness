@@ -113,6 +113,47 @@ export const deleteWorkout = async (userId: string, workoutId: string) => {
   }
 }
 
+// Nutrition goal operations
+export const updateNutritionGoals = async (userId: string, goals: {
+  calories: number;
+  protein: number;
+  carbs: number;
+  fat: number;
+}) => {
+  try {
+    const userRef = doc(db, "users", userId);
+    await updateDoc(userRef, {
+      nutritionGoals: goals,
+      updatedAt: serverTimestamp(),
+    });
+  } catch (error) {
+    console.error("Error updating nutrition goals:", error);
+    throw error;
+  }
+}
+
+export const getNutritionGoals = async (userId: string) => {
+  try {
+    const userRef = doc(db, "users", userId);
+    const docSnap = await getDoc(userRef);
+    
+    if (docSnap.exists() && docSnap.data().nutritionGoals) {
+      return docSnap.data().nutritionGoals;
+    }
+    
+    // Default goals
+    return {
+      calories: 2500,
+      protein: 180,
+      carbs: 250,
+      fat: 80
+    };
+  } catch (error) {
+    console.error("Error getting nutrition goals:", error);
+    throw error;
+  }
+}
+
 // Nutrition operations
 export const addNutritionLog = async (userId: string, nutritionData: any) => {
   try {

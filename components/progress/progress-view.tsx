@@ -180,14 +180,10 @@ export function ProgressView() {
           </div>
         </TabsContent>
         <TabsContent value="body-metrics">
-          <div className="flex h-40 items-center justify-center rounded-md border border-dashed border-gray-700">
-            <p className="text-gray-500">Body metrics tracking coming soon</p>
-          </div>
+          <BodyMetrics />
         </TabsContent>
         <TabsContent value="photos">
-          <div className="flex h-40 items-center justify-center rounded-md border border-dashed border-gray-700">
-            <p className="text-gray-500">Progress photos coming soon</p>
-          </div>
+          <ProgressPhotos />
         </TabsContent>
       </Tabs>
     </div>
