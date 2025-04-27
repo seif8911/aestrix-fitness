@@ -132,6 +132,55 @@ export const updateNutritionGoals = async (userId: string, goals: {
   }
 }
 
+// Wellness tracking operations
+export const addWellnessLog = async (userId: string, wellnessData: any) => {
+  try {
+    const dateStr = wellnessData.date || new Date().toISOString().split('T')[0]
+    const wellnessRef = doc(db, "users", userId, "wellness", dateStr)
+    
+    await setDoc(wellnessRef, {
+      ...wellnessData,
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
+    }, { merge: true })
+    
+    return wellnessRef
+  } catch (error) {
+    console.error("Error adding wellness log:", error)
+    throw error
+  }
+}
+
+export const getWellnessLog = async (userId: string, date: string) => {
+  try {
+    const wellnessRef = doc(db, "users", userId, "wellness", date)
+    const docSnap = await getDoc(wellnessRef)
+    
+    if (docSnap.exists()) {
+      return { id: docSnap.id, ...docSnap.data() }
+    }
+    return null
+  } catch (error) {
+    console.error("Error getting wellness log:", error)
+    throw error
+  }
+}
+
+export const getWellnessLogs = async (userId: string, days = 7) => {
+  try {
+    const wellnessRef = collection(db, "users", userId, "wellness")
+    const querySnapshot = await getDocs(wellnessRef)
+    
+    return querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }))
+  } catch (error) {
+    console.error("Error getting wellness logs:", error)
+    throw error
+  }
+}
+
 export const getNutritionGoals = async (userId: string) => {
   try {
     const userRef = doc(db, "users", userId);
