@@ -1,0 +1,110 @@
+Now that the MVP is connected to Firebase, I want you to implement the core fitness app features fully.
+
+Build real working functionality, not placeholders.
+Use Firestore for data storage, Firebase Storage for images, and Context for user state.
+
+Here's the list of features to implement:
+
+🏋️ Workout System
+
+Display available workout plans.
+
+Auto-adjust workouts based on previous performance (progressive overload logic).
+
+Track completed workouts (date, sets, reps, weights used).
+
+Timer for sets and rest periods (visual + audio cues).
+
+✍️ Workout Logging
+
+After completing a workout, log details to Firestore.
+
+Allow editing past logs if needed.
+
+🥗 Nutrition Tracking
+
+Log meals, calories, macros daily.
+
+Log water intake (goal vs. actual).
+
+Weekly summary of calories/macros consumed.
+
+🍳 Smart AI Meal Plans (Mock for Now)
+
+Generate a weekly meal plan based on user preferences (mock using local functions or JSON for now).
+
+📊 Progress & Analytics
+
+Graphs and charts for:
+
+Workout volume over time.
+
+Calories consumed over time.
+
+Sleep hours and stress/mood levels over time.
+
+🗓️ Calendar View
+
+View past workouts and nutrition logs on a monthly calendar.
+
+Click a date to view the log details.
+
+😴 Wellness Tracking
+
+Daily logging of:
+
+Sleep hours
+
+Sleep quality (1–10)
+
+Fatigue level (1–10)
+
+Mood/stress level (1–10)
+
+📸 Progress Photos
+
+Allow users to upload photos (Firebase Storage).
+
+Display photos in a timeline sorted by date.
+
+🧠 Habit Tracking
+
+Track key habits:
+
+Water intake
+
+Junk food avoidance
+
+Sleep consistency
+
+Workout consistency
+
+Show streaks (e.g., 5 days of hydration goal hit = badge).
+
+🏆 Gamification
+
+Award badges for:
+
+PRs hit
+
+Workout streaks
+
+Habit consistency
+
+🔄 Offline Support
+
+Ensure Firestore caching is used properly so the app works offline.
+
+🔒 Security
+
+Double-check Firestore security rules.
+
+✨ Important
+
+Implement real functionality — no mock data anymore.
+
+Make all features interact with Firestore or local cache properly.
+
+Keep the UI clean and simple (text, modals, basic buttons if needed).
+
+Keep code modular and organized (components, services, hooks, utils).
