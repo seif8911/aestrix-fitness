@@ -204,25 +204,7 @@ export function WorkoutDetail({ id }: WorkoutDetailProps) {
         </Card>
       )}
 
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle>Rest Timer</CardTitle>
-          <div className="text-2xl font-mono">{formatTime(timerSeconds)}</div>
-        </CardHeader>
-        <CardContent>
-          <div className="flex space-x-2">
-            {activeTimer === null ? (
-              <Button onClick={startTimer} className="flex-1">
-                Start Timer
-              </Button>
-            ) : (
-              <Button onClick={stopTimer} variant="destructive" className="flex-1">
-                Stop
-              </Button>
-            )}
-          </div>
-        </CardContent>
-      </Card>
+      <WorkoutTimer restDuration={60} />
 
       <div className="space-y-6">
         {workout.exercises.map((exercise, exerciseIndex) => (
