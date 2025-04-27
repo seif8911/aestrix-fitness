@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { useEffect } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter, usePathname } from "next/navigation"
 import { useAuth } from "@/contexts/auth-context"
 import { Loader2 } from "lucide-react"
 
@@ -14,6 +14,7 @@ interface ProtectedRouteProps {
 export function ProtectedRoute({ children }: ProtectedRouteProps) {
   const { currentUser, isLoading } = useAuth()
   const router = useRouter()
+  const pathname = usePathname()
 
   useEffect(() => {
     if (!isLoading && !currentUser) {
@@ -30,6 +31,12 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
   }
 
   if (!currentUser) {
+    router.push("/login")
+    return null
+  }
+
+  if (!currentUser.profile?.completedOnboarding && pathname !== "/onboarding") {
+    router.push("/onboarding")
     return null
   }
 

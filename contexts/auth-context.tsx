@@ -13,6 +13,15 @@ interface UserData {
   photoURL: string | null
   createdAt?: any
   lastLogin?: any
+  profile?: {
+    completedOnboarding: boolean
+    weight: number
+    height: number
+    age: number
+    goal: string
+    activityLevel: string
+    gender: string
+  }
   [key: string]: any
 }
 
