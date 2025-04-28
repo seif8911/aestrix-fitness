@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/components/ui/use-toast";
 import { db } from "@/lib/firebase/firebase-config";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 
 interface OnboardingFormData {
   weight: string;
@@ -95,16 +95,16 @@ export function OnboardingForm({ userId }: { userId: string }) {
           height: parseFloat(formData.height),
           age: parseInt(formData.age),
         },
-        nutrition: {
-          calorieGoal: Math.round(calorieGoal),
-          proteinGoal: Math.round(proteinGoal),
-          carbGoal: Math.round(carbGoal),
-          fatGoal: Math.round(fatGoal),
-          waterGoal: 8, // Default 8 glasses
+        nutritionGoals: {
+          calories: Math.round(calorieGoal),
+          protein: Math.round(proteinGoal),
+          carbs: Math.round(carbGoal),
+          fat: Math.round(fatGoal),
+          water: 8, // Default 8 glasses
         },
         onboardingCompleted: true,
-        createdAt: new Date(),
-      });
+        updatedAt: serverTimestamp(),
+      }, { merge: true });
 
       toast({
         title: "Profile created!",
