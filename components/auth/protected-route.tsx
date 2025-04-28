@@ -1,8 +1,8 @@
+
 "use client"
 
 import type React from "react"
-
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useRouter, usePathname } from "next/navigation"
 import { useAuth } from "@/contexts/auth-context"
 import { Loader2 } from "lucide-react"
@@ -15,12 +15,19 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
   const { currentUser, isLoading } = useAuth()
   const router = useRouter()
   const pathname = usePathname()
+  const [shouldRender, setShouldRender] = useState(false)
 
   useEffect(() => {
-    if (!isLoading && !currentUser) {
-      router.push("/login")
+    if (!isLoading) {
+      if (!currentUser) {
+        router.push("/login")
+      } else if (!currentUser.profile?.completedOnboarding && pathname !== "/onboarding") {
+        router.push("/onboarding")
+      } else {
+        setShouldRender(true)
+      }
     }
-  }, [currentUser, isLoading, router])
+  }, [currentUser, isLoading, pathname, router])
 
   if (isLoading) {
     return (
@@ -30,15 +37,5 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
     )
   }
 
-  if (!currentUser) {
-    router.push("/login")
-    return null
-  }
-
-  if (!currentUser.profile?.completedOnboarding && pathname !== "/onboarding") {
-    router.push("/onboarding")
-    return null
-  }
-
-  return <>{children}</>
+  return shouldRender ? <>{children}</> : null
 }
